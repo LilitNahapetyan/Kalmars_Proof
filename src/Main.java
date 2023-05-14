@@ -59,8 +59,8 @@ public class Main {
       Implication caseNumber = Implication.getCase(val_1, val_2);
       switch (caseNumber) {
         case FIRST:
-          if (firstPart.charAt(0) != norOperator) firstPart =
-            norOperator + firstPart;
+          if (firstPart.charAt(0) != norOperator) 
+          firstPart = norOperator + firstPart;
           node.setLeft(new Node(firstPart));
           generateTree(firstPart, node.getLeft());
           break;
@@ -120,7 +120,7 @@ public class Main {
     for (int i = 0; i < variables.length(); i++) {
       char variable = variables.charAt(i);
       char value = values.charAt(i);
-      vector1.put(variable, Character.getNumericValue(value));
+      vector1.put(variable, value == '0' ? 0 : 1);
     }
   }
 
@@ -159,20 +159,13 @@ public class Main {
         letters.add(c);
       }
     }
-    char[] sortedLetters = new char[letters.size()];
-    int index = 0;
-
-    for (char c : letters) {
-      sortedLetters[index++] = c;
-    }
-    Arrays.sort(sortedLetters);
     StringBuilder sb = new StringBuilder();
-
-    for (char c : sortedLetters) {
+    for (char c : letters) {
       sb.append(c);
     }
     return sb.toString();
   }
+  
 
   public static String generateDOTCode(Node node) {
     StringBuilder sb = new StringBuilder();
@@ -230,7 +223,9 @@ public class Main {
       putValues(statement, values);
       Expression.values = vector1;
       int value = Expression.calculate(statement);
-      System.out.println(value);
+      String v = getSortedVariables(statement);
+      System.out.println("value " + v);
+      System.out.println("value " + value);
       String producedFormula = statement;
       if (value == 0) {
         producedFormula = norOperator + "(" + statement + ")";

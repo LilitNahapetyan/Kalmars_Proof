@@ -27,19 +27,18 @@ public enum Implication {
   }
 
   public static Implication getCase(int a, int b) {
-    switch (a * 2 + b) {
-      case 0:
-        return FIRST;
-      case 1:
-        return FOURTH;
-      case 2:
-        return THIRD;
-      case 3:
-        return SECOND;
-      default:
-        throw new IllegalArgumentException(
-          "Invalid values for a and b: " + a + ", " + b
-        );
+    if (a == 0 && b == 0) {
+      return FIRST;
+    } else if (a == 0 && b == 1) {
+      return FOURTH;
+    } else if (a == 1 && b == 0) {
+      return THIRD;
+    } else if (a == 1 && b == 1) {
+      return SECOND;
+    } else {
+      throw new IllegalArgumentException(
+        "Invalid values for a and b: " + a + ", " + b
+      );
     }
   }
 }
