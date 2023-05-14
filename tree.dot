@@ -1,0 +1,7 @@
+digraph G {
+"(A>!B)>(A>C)" [label="(A>!B)>(A>C)"];
+"(A>!B)>(A>C)" -> "(A>C)";
+"(A>C)" [label="(A>C)"];
+"(A>C)" -> "C";
+"C" [label="C"];
+}
