@@ -3,7 +3,6 @@ import BTree.Node;
 import BTree.Tree;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -21,6 +20,12 @@ public class Main {
     int indexOfOpeningBracket = formula.indexOf('(');
     int indexOfNor = formula.indexOf(norOperator);
     if (indexOfNor == 0) { // !(....)
+      if(formula.charAt(1) == '!'){
+          formula = formula.substring(2);
+          node.setLeft(new Node(formula));
+          generateTree(formula, node.getLeft());
+          return;
+        }
       if (indexOfOpeningBracket == 1) {
         int indexOfClose = findClosingParen(
           formula.toCharArray(),
@@ -223,12 +228,21 @@ public class Main {
       putValues(statement, values);
       Expression.values = vector1;
       int value = Expression.calculate(statement);
-      String v = getSortedVariables(statement);
-      System.out.println("value " + v);
-      System.out.println("value " + value);
       String producedFormula = statement;
       if (value == 0) {
-        producedFormula = norOperator + "(" + statement + ")";
+        if (producedFormula.charAt(0) == '!') {
+          if (producedFormula.indexOf('>') == -1) {
+            producedFormula = norOperator + statement;
+          } else if (
+            (producedFormula.indexOf('(') != -1) &&
+            (producedFormula.indexOf('(') < producedFormula.indexOf('>')) &&
+            findClosingParen(producedFormula.toCharArray(), producedFormula.indexOf('(')) == (producedFormula.length() - 1)
+          ) {
+            producedFormula = norOperator + statement;
+          } else {
+            producedFormula = norOperator + "(" + statement + ")";
+          }
+        }
       }
       System.out.println("Given formula: " + statement);
       System.out.println("We need to take out: " + producedFormula);

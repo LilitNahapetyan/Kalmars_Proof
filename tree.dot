@@ -1,9 +1,13 @@
 digraph G {
-"C>(B>(A>B))" [label="C>(B>(A>B))"];
-"C>(B>(A>B))" -> "(B>(A>B))";
-"(B>(A>B))" [label="(B>(A>B))"];
-"(B>(A>B))" -> "(A>B)";
+"!(!!!!(A>B)>C)" [label="!(!!!!(A>B)>C)"];
+"!(!!!!(A>B)>C)" -> "!!(A>B)>C";
+"!!(A>B)>C" [label="!!(A>B)>C"];
+"!!(A>B)>C" -> "(A>B)>C";
+"(A>B)>C" [label="(A>B)>C"];
+"(A>B)>C" -> "(A>B)";
 "(A>B)" [label="(A>B)"];
 "(A>B)" -> "B";
 "B" [label="B"];
+"(A>B)>C" -> "!C";
+"!C" [label="!C"];
 }
